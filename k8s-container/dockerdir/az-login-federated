@@ -1,0 +1,4 @@
+#!/bin/bash 
+az login --federated-token "$(cat $AZURE_FEDERATED_TOKEN_FILE)" --service-principal -u $AZURE_CLIENT_ID -t $AZURE_TENANT_ID --allow-no-subscriptions
+az account get-access-token --query accessToken --output tsv
+

@@ -1,0 +1,14 @@
+#!/bin/bash
+if [[ -z "${AZURE_TENANT_ID}" ]]; then
+    echo "Error: AZURE_TENANT_ID is not set."
+    exit 1
+fi
+
+# Rest of your script...
+
+helm repo add azure-workload-identity https://azure.github.io/azure-workload-identity/charts
+helm repo update
+helm install workload-identity-webhook azure-workload-identity/workload-identity-webhook \
+   --namespace azure-workload-identity-system \
+   --create-namespace \
+   --set azureTenantID="${AZURE_TENANT_ID}"

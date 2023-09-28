@@ -1,0 +1,3 @@
+#!/bin/bash 
+docker tag managed-ident-test:latest ghcr.io/stvdilln/managed-ident-test:0.0.3
+docker push ghcr.io/stvdilln/managed-ident-test:0.0.3 

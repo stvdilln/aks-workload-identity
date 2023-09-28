@@ -1,0 +1,2 @@
+kubectl exec -it my-debug-container -- bash 
+

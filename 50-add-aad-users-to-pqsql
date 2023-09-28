@@ -1,0 +1,20 @@
+#In order to prevent you from needing pqsql on your machine and 
+#needing to log in with it, I give these instuructions to do this 
+#in the Azure portal.
+
+#In Azure Portal in the search bar search for 'pg-wl-ident' and select it.
+#Then Databases->Postgres->Connect 
+
+# You can run this script to have it format the commands for you
+
+cat <<EOF
+# run this on the 'postgres' database
+select * from pgaadauth_create_principal('$aks_workload_app1_user_name', false, false);
+
+# run these on the 'test-db' database
+CREATE TABLE my_table (
+    test text
+);
+GRANT INSERT,SELECT ON my_table TO "$aks_workload_app1_user_name";
+EOF
+

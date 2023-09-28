@@ -1,0 +1,39 @@
+#!/bin/bash
+#cat <<EOF
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Pod
+
+metadata:
+  name: my-debug-container
+  namespace: default
+  labels:
+     azure.workload.identity/use: "true"   
+spec:
+  serviceAccountName: app1
+  containers:
+    - name: static-client
+      image: ghcr.io/stvdilln/managed-ident-test:0.0.3
+      env: 
+        - name: "key_vault_uri"
+          value: "$key_vault_uri"
+        - name: "key_vault_secret_name"
+          value: "big-secret"
+        - name: "aks_workload_app1_user_name"
+          value: "$aks_workload_app1_user_name" 
+        - name: "pg_database"
+          value: "$pg_database"
+        - name: "pg_host"
+          value: "$pg_host"
+
+      command: [ "/bin/sh", "-c", "--" ]
+      args: [ "while true; do sleep 30; done;" ]
+         
+      resources:
+        requests:
+           memory: "128Mi"
+           cpu: "100m"
+        limits:
+           memory: "256Mi"
+           cpu: "200m"
+EOF
