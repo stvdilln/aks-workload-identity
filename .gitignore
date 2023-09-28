@@ -1,3 +1,5 @@
+env.sh
+
 # Local .terraform directories
 **/.terraform/*
 
